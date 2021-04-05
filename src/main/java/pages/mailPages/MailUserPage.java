@@ -1,37 +1,41 @@
 package pages.mailPages;
 
+import org.testng.Assert;
 import pages.Page;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import steps.Driver;
 
-//pictures link
 public class MailUserPage extends Page {
 
-    @FindBy(xpath = "//div[@class = 'input__cbir-button input__button']")
+    @FindBy(xpath = "//i[@id= 'PH_user-email']")
     public WebElement ensurePageLoaded;
 
-    @FindBy(xpath = "//div[@class = 'input__cbir-button input__button']/button")
-    public WebElement downloadByBictureButton;
+    @FindBy(xpath = "//span[contains(@class , 'compose-button__wrapper')]/span")
+    public WebElement createEmailButton;
 
-    @FindBy(xpath = "//div[@class = 'CbirItem-Title'][text() = 'Кажется, на изображении']")
-    public WebElement pictureResultsElement;
+    @FindBy(xpath = "//div[@class = 'dataset__items']")
+    public WebElement messagesField;
 
     public void ensurePageLoaded() {
         waitWhileElemIsVisible(ensurePageLoaded);
     }
-    public void clickOnDownloadButton() {
-        downloadByBictureButton.click();
+
+    public void checkThatLoginComplete(String login) {
+        WebElement element = Driver.getDriver().findElement(By.xpath("//i[@id= 'PH_user-email'][text() = '"+login+ "@mail.ru']"));
+        waitWhileElemIsVisible(element);
     }
 
-    public void verifyPictureIs(String pictureName, String state) {
-        waitWhileElemIsVisible(pictureResultsElement);
-        if(state.equals("present")){
-            WebElement element = Driver.getDriver().findElement(By.xpath("//div[@class = 'CbirItem-Title'][text() = 'Кажется, на изображении']/..//span[contains(text(), '"+pictureName+"')]"));
-            waitWhileElemIsVisible(element);
-        } else {
-            //negative test
-        }
+    public void clickOnCreateEmail() {
+        waitWhileElemIsVisible(createEmailButton);
+        createEmailButton.click();
+    }
+
+    public void checkReceivingEmail(String text, String content) {
+        waitWhileElemIsVisible(messagesField);
+        waitWhileElemIsVisible(Driver.getDriver().findElement(By.xpath("//span[contains(@class, 'normal')][text() = '"+text+"']")));
+        String textContent = getText(Driver.getDriver().findElement(By.xpath("//div[@class = 'dataset__items']/a[1]//div[@class = 'llc__item llc__item_title']")));
+        Assert.assertTrue(textContent.contains(content));
     }
 }

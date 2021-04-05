@@ -1,19 +1,25 @@
 package tests;
 
 import common.Application;
+import models.ModelsParser;
+import models.UserModel;
 import org.testng.annotations.Test;
+import pages.Navigation;
+import steps.Driver;
 import steps.MailSteps;
 
-public class mailTest {
+import java.io.IOException;
 
+public class mailTest extends Driver {
 
     @Test
-    public void loginSuccess() {
+    public void sendMail() throws IOException {
+        UserModel userModel = ModelsParser.jsonParsingUser(Navigation.getAbsolutePath("userData.json"));
         MailSteps.openLoginPage(Application.getProperty("url"));
-//        MailSteps.login(Application.getProperty("login1"), Application.getProperty("password1"));
-//        MailSteps.sendMail("Тест", "Тест отправки");
-//        MailSteps.logout();
-//        MailSteps.login(Application.getProperty("login2"), Application.getProperty("password2"));
-//        MailSteps.checkRecievungEmail("Тест", "Тест отправки");
+        MailSteps.login(userModel.getLogin1(), userModel.getPassword1());
+        MailSteps.sendMail(userModel.getText(), userModel.getContent(), userModel.getForWhomEmail());
+        MailSteps.logout();
+        MailSteps.login(userModel.getLogin2(), userModel.getPassword2());
+        MailSteps.checkReceivingEmail(userModel.getText(), userModel.getContent());
     }
 }

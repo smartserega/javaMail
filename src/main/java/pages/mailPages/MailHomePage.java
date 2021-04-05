@@ -1,23 +1,23 @@
 package pages.mailPages;
 
-import pages.Page;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import steps.Driver;
+import pages.Page;
 
-//yandex home page
 public class MailHomePage extends Page {
 
-    @FindBy(xpath = "//a[text() = 'Сделать стартовой']")
+    @FindBy(id = "search:submit")
     public WebElement ensurePageLoadedElement;
 
-    public void ensurePageOpen() {
+    @FindBy(xpath = "//button[contains(@class , 'login')]")
+    public WebElement loginButton;
+
+    public void ensurePageLoaded() {
+        waitForLoad();
         waitWhileElemIsVisible(ensurePageLoadedElement);
     }
 
-    public void openServicesLink(String link) {
-        WebElement linkElement = Driver.getDriver().findElement(By.xpath("//div[contains(@class , services-new__item-title)][text() = '"+link+"']"));
-        linkElement.click();
+    public void clickOnLoginButton() {
+        loginButton.click();
     }
 }

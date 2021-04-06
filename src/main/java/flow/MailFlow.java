@@ -6,7 +6,7 @@ import pages.mailPages.MailLoginPage;
 import pages.mailPages.MailHomePage;
 import pages.mailPages.MailUserPage;
 import org.openqa.selenium.support.PageFactory;
-import steps.Driver;
+import common.Driver;
 
 public class MailFlow {
     private static MailHomePage mailHomePage = PageFactory.initElements(

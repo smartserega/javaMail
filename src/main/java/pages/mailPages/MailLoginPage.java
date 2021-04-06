@@ -42,6 +42,5 @@ public class MailLoginPage extends Page {
 
     public void confirmPassword() {
         confirmPasswordButton.click();
-
     }
 }

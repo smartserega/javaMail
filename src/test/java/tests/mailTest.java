@@ -5,7 +5,7 @@ import models.ModelsParser;
 import models.UserModel;
 import org.testng.annotations.Test;
 import pages.Navigation;
-import steps.Driver;
+import common.Driver;
 import steps.MailSteps;
 
 import java.io.IOException;

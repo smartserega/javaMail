@@ -1,6 +1,6 @@
 package pages;
 
-import steps.Driver;
+import common.Driver;
 
 import java.io.File;
 import java.io.IOException;

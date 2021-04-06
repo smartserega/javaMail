@@ -16,10 +16,7 @@ public class ModelsParser {
 
     public static JsonObject jsonReadFile(String filePath) throws IOException {
         StringBuilder builder = new StringBuilder();
-        JsonParser parser = new JsonParser();
         try {
-
-            //прочтем файл построчно
             FileInputStream fstream = new FileInputStream(filePath);
             BufferedReader br = new BufferedReader(new InputStreamReader(fstream));
             String row;
@@ -30,12 +27,9 @@ public class ModelsParser {
         } catch (IOException e) {
             System.out.println("Ошибка: " + e);
             System.exit(1);
-
         }
 
-        //Распарсим полученый текст из файла
-        JsonObject elementA = parser.parse(builder.toString()).getAsJsonObject();
-        return elementA;
+        return JsonParser.parseString(builder.toString()).getAsJsonObject();
     }
 
     public static UserModel jsonParsingUser(String absolutePath) throws IOException {
